@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成都法拍房 · 价值分析报告</title>
+<style>
+:root {
+  --bg: #F7F5F0; --surface: #FCFCFA; --ink: #1C1815;
+  --muted: #706C68; --dim: #C5C0BA;
+  --accent: #1D6B7E; --accent-soft: #E8F0F3;
+  --accent2: #D4923C; --accent2-soft: #FBF3E8;
+  --border: rgba(28,24,21,.08); --shadow: rgba(28,24,21,.04);
+  --green: #2D7D5A; --green-soft: #EDF5F1;
+  --red: #B34A4A; --red-soft: #F8EEEE;
+  --radius: 8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:17px;scroll-behavior:smooth;}
+body{
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.7;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:.022;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.container{max-width:880px;margin:0 auto;padding:0 24px;}
+.cover{padding:100px 0 60px;position:relative;overflow:hidden;}
+.cover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,107,126,.04) 0%,transparent 60%);pointer-events:none;}
+.cover-badge{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:4px 14px;border-radius:20px;margin-bottom:24px;}
+.cover h1{font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-.035em;line-height:1.15;color:var(--ink);margin-bottom:16px;}
+.cover h1 em{font-style:normal;color:var(--accent);}
+.cover p{font-size:1.05rem;color:var(--muted);max-width:600px;line-height:1.6;}
+.cover-meta{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:28px;padding-top:24px;border-top:1px solid var(--border);font-size:.85rem;color:var(--muted);}
+.cover-meta span{display:flex;align-items:center;gap:6px;}
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 32px;margin-bottom:48px;box-shadow:0 1px 4px var(--shadow);}
+.toc h2{font-size:.8rem;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.toc-list a{color:var(--ink);text-decoration:none;font-size:.92rem;display:flex;align-items:center;gap:10px;transition:color .2s;padding:4px 0;}
+.toc-list a:hover{color:var(--accent);}
+.toc-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:.72rem;font-weight:650;flex-shrink:0;}
+section{padding:40px 0;}
+.section-header{margin-bottom:28px;}
+.section-label{font-size:.72rem;font-weight:650;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.section-header h2{font-size:clamp(24px,3.5vw,34px);font-weight:800;letter-spacing:-.03em;line-height:1.2;color:var(--ink);}
+.section-header p{color:var(--muted);font-size:.95rem;margin-top:8px;max-width:600px;}
+h3{font-size:1.15rem;font-weight:700;color:var(--ink);margin:28px 0 12px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin:16px 0;box-shadow:0 1px 4px var(--shadow);}
+.card:hover{box-shadow:0 4px 12px var(--shadow);}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.card-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;flex-shrink:0;}
+.card-icon.green{background:var(--green-soft);color:var(--green);}
+.card-icon.amber{background:var(--accent2-soft);color:var(--accent2);}
+.card-icon.blue{background:var(--accent-soft);color:var(--accent);}
+.card-icon.red{background:var(--red-soft);color:var(--red);}
+.card-title{font-weight:650;font-size:1rem;}
+.card-body{font-size:.92rem;color:var(--muted);line-height:1.65;}
+.card-body p+p{margin-top:8px;}
+.card-body strong{color:var(--ink);font-weight:600;}
+.judgment{margin:20px 0;}
+.judgment-header{display:flex;gap:16px;align-items:flex-start;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:background .2s;box-shadow:0 1px 4px var(--shadow);}
+.judgment-header:hover{background:#FAF9F6;}
+.judgment-num{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-size:.82rem;font-weight:700;flex-shrink:0;}
+.judgment-preview{flex:1;min-width:0;}
+.judgment-title{font-weight:700;font-size:1rem;line-height:1.4;margin-bottom:4px;padding-right:28px;position:relative;}
+.judgment-title::after{content:'\25BE';position:absolute;right:0;top:2px;font-size:.8rem;color:var(--muted);transition:transform .3s;}
+.judgment.open .judgment-title::after{transform:rotate(-180deg);}
+.judgment-sub{font-size:.85rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.judgment.open .judgment-sub{-webkit-line-clamp:unset;display:block;}
+.judgment-body{display:none;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-top:0;border-radius:0 0 var(--radius) var(--radius);box-shadow:0 1px 4px var(--shadow);}
+.judgment.open .judgment-header{border-radius:var(--radius) var(--radius) 0 0;}
+.judgment.open .judgment-body{display:block;}
+.judgment-body p{margin-bottom:10px;font-size:.92rem;color:var(--muted);line-height:1.7;}
+.judgment-body strong{color:var(--ink);font-weight:600;}
+.judgment-takeaway{background:var(--accent2-soft);border-left:3px solid var(--accent2);padding:12px 16px;border-radius:6px;margin:12px 0;font-size:.9rem;color:var(--ink);}
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:var(--radius);border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-size:.88rem;background:var(--surface);}
+th{background:var(--bg);font-weight:650;font-size:.8rem;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);padding:12px 14px;text-align:left;border-bottom:2px solid var(--accent);white-space:nowrap;}
+td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top;}
+tr:last-child td{border-bottom:0;}
+td.num{font-variant-numeric:tabular-nums;text-align:right;font-weight:600;color:var(--ink);}
+td.tag{font-size:.75rem;font-weight:600;padding:2px 10px;border-radius:12px;display:inline-block;white-space:nowrap;}
+.tag-green{background:var(--green-soft);color:var(--green);}
+.tag-amber{background:var(--accent2-soft);color:var(--accent2);}
+.tag-red{background:var(--red-soft);color:var(--red);}
+.tag-blue{background:var(--accent-soft);color:var(--accent);}
+.tabs{margin:20px 0;}
+.tab-bar{display:flex;gap:2px;border-bottom:2px solid var(--accent);margin-bottom:0;overflow-x:auto;}
+.tab-btn{padding:10px 18px;font-size:.85rem;font-weight:600;background:var(--bg);border:1px solid var(--border);border-bottom:0;border-radius:var(--radius) var(--radius) 0 0;cursor:pointer;color:var(--muted);white-space:nowrap;transition:all .2s;margin-bottom:-2px;}
+.tab-btn:hover{color:var(--accent);background:var(--accent-soft);}
+.tab-btn.active{background:var(--surface);color:var(--accent);border-bottom:2px solid var(--surface);}
+.tab-content{display:none;padding:20px;background:var(--surface);border:1px solid var(--border);border-top:0;border-radius:0 0 var(--radius) var(--radius);}
+.tab-content.active{display:block;}
+.tab-content p{font-size:.92rem;color:var(--muted);margin-bottom:10px;}
+.tab-content strong{color:var(--ink);}
+.calc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;margin:20px 0;box-shadow:0 1px 4px var(--shadow);}
+.calc h3{margin-top:0;}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin:16px 0;}
+.calc-field label{display:block;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:4px;}
+.calc-field input{width:100%;padding:8px 12px;font-size:.95rem;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--ink);font-variant-numeric:tabular-nums;}
+.calc-field input:focus{outline:none;border-color:var(--accent);}
+.calc-result{margin-top:16px;padding:16px;background:var(--accent-soft);border-radius:var(--radius);border-left:3px solid var(--accent);}
+.calc-result h4{font-size:.85rem;color:var(--accent);margin-bottom:8px;}
+.calc-result-row{display:flex;justify-content:space-between;padding:4px 0;font-size:.9rem;}
+.calc-result-row span:first-child{color:var(--muted);}
+.calc-result-row span:last-child{font-weight:650;color:var(--ink);}
+.calc-result-row.total{border-top:1px solid var(--border);margin-top:4px;padding-top:8px;}
+.calc-result-row.total span:last-child{color:var(--accent);font-size:1.05rem;}
+.checklist{list-style:none;margin:12px 0;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:10px 16px;margin:6px 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);font-size:.9rem;}
+.checklist .check{color:var(--green);font-weight:700;flex-shrink:0;}
+.checklist .cross{color:var(--red);font-weight:700;flex-shrink:0;}
+.checklist .warn{color:var(--accent2);font-weight:700;flex-shrink:0;}
+.alert{padding:16px 20px;border-radius:var(--radius);margin:16px 0;border-left:3px solid;font-size:.9rem;}
+.alert.green{background:var(--green-soft);border-color:var(--green);color:var(--green);}
+.alert.amber{background:var(--accent2-soft);border-color:var(--accent2);color:#7A5E20;}
+.alert.red{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+.alert.blue{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+.alert strong{display:block;margin-bottom:4px;}
+hr{border:0;height:1px;background:var(--border);margin:40px 0;}
+footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;}
+footer p{font-size:.8rem;color:var(--dim);line-height:1.6;}
+.print-btn{position:fixed;bottom:24px;right:24px;z-index:1000;padding:12px 20px;background:var(--accent);color:#fff;border:0;border-radius:24px;font-size:.85rem;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(29,107,126,.25);transition:transform .2s,box-shadow .2s;display:flex;align-items:center;gap:8px;}
+.print-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(29,107,126,.35);}
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:10000;transition:width .1s;width:0%;}
+@media print{
+  @page{margin:1.2cm 1.6cm;size:A4;}
+  body{background:#fff;color:#000;font-size:11pt;}
+  body::before{display:none!important;}
+  .print-btn,.progress-bar{display:none!important;}
+  .container{max-width:none;padding:0;}
+  .judgment-body{display:block!important;}
+  .judgment-title::after{display:none!important;}
+  .judgment-header{cursor:default;border-radius:var(--radius) var(--radius) 0 0;}
+  .tab-content{display:block!important;border:1px solid #ddd;margin-bottom:12px;}
+  .tab-bar{display:none;}
+  .card{box-shadow:none;border:1px solid #ddd;break-inside:avoid;}
+  .card:hover{box-shadow:none;}
+  section{page-break-inside:avoid;}
+  table{font-size:9pt;break-inside:avoid;}
+  th{background:#f5f5f5!important;color:#000;}
+  td{color:#333;}
+  .cover::after{display:none;}
+  .alert{border:1px solid #ddd;}
+  .calc{box-shadow:none;border:1px solid #ddd;break-inside:avoid;}
+  .calc-result{background:#f8f8f8;}
+  .toc{box-shadow:none;break-inside:avoid;}
+  a{color:#000;text-decoration:none;}
+  .cover{padding:40px 0 30px;}
+  .cover h1{font-size:24pt;}
+  section{padding:20px 0;}
+  .judgment{break-inside:avoid;}
+  .calc-grid input{border:1px solid #ccc;background:#f9f9f9;}
+  .tab-content::before{content:attr(data-tab);display:block;font-weight:700;font-size:.85rem;color:var(--accent);margin-bottom:8px;}
+}
+@media(max-width:640px){
+  .container{padding:0 16px;}
+  .cover{padding:60px 0 40px;}
+  .calc-grid{grid-template-columns:1fr;}
+  .judgment-header,.judgment-body{padding:16px;}
+  .cover-meta{flex-direction:column;gap:4px;}
+  .tab-btn{font-size:.78rem;padding:8px 12px;}
+  .card{padding:16px;}
+  .toc{padding:20px;}
+  th,td{padding:8px 10px;font-size:.82rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="container">
+
+<header class="cover">
+  <div class="cover-badge">罗盘 · 行业研究</div>
+  <h1>成都法拍房<span class="accent">价值投资</span><br>深度分析报告</h1>
+  <p>基于法拍市场真实数据的投资模型拆解与合规边界分析。包含完整利润测算、实操路径、风险清单。</p>
+  <div class="cover-meta">
+    <span>📅 2026年7月9日</span>
+    <span>📊 数据截至 2026年6月</span>
+    <span>📄 约 6,000 字</span>
+    <span>🎯 面向 投资者 / 操盘方</span>
+  </div>
+</header>
+
+<nav class="toc" id="toc">
+  <h2>目录</h2>
+  <ol class="toc-list">
+    <li><a href="#j1"><span class="toc-num">1</span> 五大核心判断</a></li>
+    <li><a href="#case"><span class="toc-num">2</span> 案例完整拆解（7500 → 20000）</a></li>
+    <li><a href="#calc"><span class="toc-num">3</span> 收益计算器 &amp; 场景对比</a></li>
+    <li><a href="#ecosystem"><span class="toc-num">4</span> 行业生态与权力分布</a></li>
+    <li><a href="#compliance"><span class="toc-num">5</span> 合规边界检查清单</a></li>
+    <li><a href="#plan"><span class="toc-num">6</span> 实操执行方案</a></li>
+    <li><a href="#risks"><span class="toc-num">7</span> 风险评估与缓释</a></li>
+  </ol>
+</nav>
+
+<section id="j1">
+<div class="section-header">
+  <div class="section-label">Core Theses</div>
+  <h2>五大核心判断</h2>
+  <p>基于成都法拍市场 2025—2026 年数据的结论。点击标题展开查看完整分析。</p>
+</div>
+
+<div class="judgment open" id="judgment1">
+  <div class="judgment-header" onclick="toggleJudgment(this)">
+    <span class="judgment-num">1</span>
+    <div class="judgment-preview">
+      <div class="judgment-title">这是"折价投资"，不是"高评高贷"——合法边界在于评估价是否真实</div>
+      <div class="judgment-sub">你的 7500/㎡ 法拍价是真实市场竞争结果，不是人为做低；只要 20000 评估价基于可比交易而非串通，这就是正常商业行为。</div>
+    </div>
+  </div>
+  <div class="judgment-body">
+    <p>2026 年 1 月被判非法经营罪的案例中，核心违法要素是：<strong>人为串通评估公司拉高评估价 + 收取超过 36% 实际年化利率 + 资金用于非法放贷</strong>。</p>
+    <p>而你的案例中：</p>
+    <ul style="padding-left:20px;margin-bottom:10px;font-size:.92rem;color:var(--muted);">
+      <li style="margin-bottom:5px;">✅ 法拍价 7500/㎡——真实市场竞争定价</li>
+      <li style="margin-bottom:5px;">✅ 评估价 20000/㎡——如果是银行独立评估且可比交易支撑</li>
+      <li style="margin-bottom:5px;">❌ 你说的"85 成"对叠拼过于乐观——实际 5-7 成</li>
+      <li style="margin-bottom:5px;">⚠️ 银行对 1 年内法拍房执行"孰低原则"</li>
+    </ul>
+    <div class="judgment-takeaway">
+      <strong>所以</strong>：关键区别是 "真实市场折扣" ≠ "人为抬高评估"。只要评估真实 + 资金用途合规 + 利率不超红线，这就是正常商业行为。
+    </div>
+  </div>
+</div>
+
+<div class="judgment" id="judgment2">
+  <div class="judgment-header" onclick="toggleJudgment(this)">
+    <span class="judgment-num">2</span>
+    <div class="judgment-preview">
+      <div class="judgment-title">银行不会马上按评估价放款——"孰低原则"要求持有 1 年以上</div>
+      <div class="judgment-sub">法拍房拿证不满 1 年，银行按成交价（7500）计算贷款额度；满 1 年后才按评估价（20000）计算。</div>
+    </div>
+  </div>
+  <div class="judgment-body">
+    <p>银行对法拍房抵押贷款执行<strong>"孰低原则"</strong>——按成交价与评估价中较低者计算。对新法拍房（持证不满 1 年），银行按较低的成交价计算；超过 1 年后才按评估价。</p>
+    <p>同时，<strong>叠拼别墅的抵押成数约 5-7 成</strong>（普通住宅才是 8.5 成）。</p>
+    <div class="judgment-takeaway">
+      <strong>所以</strong>：按你的数字测算——20000/㎡ × 60% = 12000/㎡，减去成本 7500/㎡，净套出 4500/㎡。以 150㎡ 叠拼为例：净套出约 <strong>67.5 万</strong>（保守）至 <strong>97.5 万</strong>（最佳）。
+    </div>
+  </div>
+</div>
+
+<div class="judgment" id="judgment3">
+  <div class="judgment-header" onclick="toggleJudgment(this)">
+    <span class="judgment-num">3</span>
+    <div class="judgment-preview">
+      <div class="judgment-title">真正的利润来自"法拍折扣 + 时间杠杆"，不是"高频高贷"</div>
+      <div class="judgment-sub">扣除 1 年持有期的资金成本、税费、服务费后，单套年化 ROI 约 16-36%。低频、高确定性，不是快速回本的剧本。</div>
+    </div>
+  </div>
+  <div class="judgment-body">
+    <p>按你的 7500/㎡ 叠拼测算：成本 112.5 万（150㎡）；1 年后经营贷 180 万（60% 成数）；各项费用（税费 11-17 万 + 过桥费 13.5-27 万 + 物业费 + 服务费）约 26-48 万；最终净套出约 <strong>18-40 万</strong>。</p>
+    <p>年化 ROI 约 <strong>16-36%</strong>。这个回报率实际上非常好，但性质是低频高确定性投资——每套 1 年周期，每年只能做 1-2 轮。</p>
+    <div class="judgment-takeaway">
+      <strong>所以</strong>：不是"快速回本"的高频剧本，而是 <strong>"拿住 1 年 + 确定性回报"</strong>。如果想扩大规模，需要 LP 资金池或与辅拍机构合作。
+    </div>
+  </div>
+</div>
+
+<div class="judgment" id="judgment4">
+  <div class="judgment-header" onclick="toggleJudgment(this)">
+    <span class="judgment-num">4</span>
+    <div class="judgment-preview">
+      <div class="judgment-title">"卖给金融用户"不如"自持 + LP 资金池"模式</div>
+      <div class="judgment-sub">经营贷资金严禁流入楼市，如果金融用户无法通过审批或资金用途被穿透，风险会回溯到你。</div>
+    </div>
+  </div>
+  <div class="judgment-body">
+    <p>银行经营贷必须用于企业经营（需提供购销合同、经营流水等证据链），且资金严禁流入楼市/股市。如果把房产转给金融用户：</p>
+    <ul style="padding-left:20px;margin-bottom:10px;font-size:.92rem;color:var(--muted);">
+      <li style="margin-bottom:5px;">⚠️ 这些用户可能无法通过经营贷审批</li>
+      <li style="margin-bottom:5px;">⚠️ 资金用途监管可能穿透到你</li>
+      <li style="margin-bottom:5px;">⚠️ 一旦用户断供，你可能面临回购压力</li>
+    </ul>
+    <div class="judgment-takeaway">
+      <strong>所以</strong>：更可行的方式是 <strong>你自己作为资产持有方</strong>——过桥拿下 → 名下的经营实体申请经营贷 → 再投资。金融用户作为 <strong>LP 出资方</strong> 参与分润。
+    </div>
+  </div>
+</div>
+
+<div class="judgment" id="judgment5">
+  <div class="judgment-header" onclick="toggleJudgment(this)">
+    <span class="judgment-num">5</span>
+    <div class="judgment-preview">
+      <div class="judgment-title">成都市场供给充足——标的筛选能力才是真正的门槛</div>
+      <div class="judgment-sub">2025 年成都法拍住宅挂拍 9580 套（全国第二），市场不缺标的，缺识别好标的的能力。</div>
+    </div>
+  </div>
+  <div class="judgment-body">
+    <p>2025 年成都法拍住宅挂拍 9580 套（全国第二），2026 年 3 月单月突破千套。成交均价从 2022 年峰值 19205 跌至约 14000（跌幅 27%）。叠拼别墅在核心区（高新、天府新区）有大量挂牌，部分二拍可达 5.6 折。</p>
+    <div class="judgment-takeaway">
+      <strong>所以</strong>：关键在于你是否具备 <strong>三项核心能力</strong>：① 高效的标的筛选机制 ② 稳定的尽调能力 ③ 与辅拍机构合作。这个模式在成都有量可做，但门槛比看起来高得多。
+    </div>
+  </div>
+</div>
+</section>
+
+<hr>
+
+<section id="case">
+<div class="section-header">
+  <div class="section-label">Case Study</div>
+  <h2>案例完整拆解</h2>
+  <p>法拍价 7500/㎡ · 市场价 15000/㎡ · 评估价 20000/㎡ · 面积 150㎡ 叠拼</p>
+</div>
+
+<div class="tabs">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(this,'scenarioA')">方案A · 法拍贷</button>
+    <button class="tab-btn" onclick="switchTab(this,'scenarioB')">方案B · 经营贷（<1年）</button>
+    <button class="tab-btn" onclick="switchTab(this,'scenarioC')">方案C · 经营贷（≥1年）✅</button>
+    <button class="tab-btn" onclick="switchTab(this,'scenarioC2')">方案C2 · 最佳条件</button>
+  </div>
+
+  <div class="tab-content active" id="scenarioA" data-tab="方案A · 法拍贷（拍下时）">
+    <p><strong>计算依据</strong>：孰低原则按成交价 7500/㎡，抵押成数 85%</p>
+    <div class="table-wrap">
+    <table>
+      <tr><th>项目</th><th>数值</th></tr>
+      <tr><td>可贷金额</td><td class="num">956,250</td></tr>
+      <tr><td>需付首付</td><td class="num">168,750</td></tr>
+      <tr><td style="color:var(--red);font-weight:600;">净现金流</td><td class="num" style="color:var(--red);">-168,750（仍需补钱）</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="tab-content" id="scenarioB" data-tab="方案B · 经营贷（<1年）">
+    <p><strong>计算依据</strong>：孰低原则按成交价 7500/㎡，抵押成数 70%</p>
+    <div class="table-wrap">
+    <table>
+      <tr><th>项目</th><th>数值</th></tr>
+      <tr><td>可贷金额</td><td class="num">787,500</td></tr>
+      <tr><td>资金缺口</td><td class="num" style="color:var(--red);">-337,500</td></tr>
+      <tr><td style="color:var(--red);font-weight:600;">结论</td><td style="color:var(--red);">❌ 持证不满1年无法覆盖房款</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="tab-content" id="scenarioC" data-tab="方案C · 经营贷（≥1年）">
+    <p><strong>计算依据</strong>：评估价 20000/㎡（持证满1年），叠拼抵押成数 60%</p>
+    <div class="table-wrap">
+    <table>
+      <tr><th>项目</th><th>金额</th></tr>
+      <tr><td style="font-weight:700;" colspan="2">收入端</td></tr>
+      <tr><td>经营贷放款</td><td class="num">1,800,000</td></tr>
+      <tr><td style="font-weight:700;" colspan="2">支出端</td></tr>
+      <tr><td>法拍房款</td><td class="num">1,125,000</td></tr>
+      <tr><td>税费（契+个+增值）</td><td class="num">110,000-170,000</td></tr>
+      <tr><td>辅拍服务费</td><td class="num">11,000-34,000</td></tr>
+      <tr><td>过桥资金成本（1年）</td><td class="num">135,000-270,000</td></tr>
+      <tr><td>持有期物业费</td><td class="num">9,000-18,000</td></tr>
+      <tr><td>经营贷办理费</td><td class="num">10,000-20,000</td></tr>
+      <tr><td style="font-weight:700;color:var(--accent);background:var(--accent-soft);" colspan="2">💰 净套出现金：约 180,000 - 400,000 元</td></tr>
+      <tr><td style="font-weight:700;" colspan="2">📊 年化 ROI：约 16% - 36%</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="tab-content" id="scenarioC2" data-tab="方案C2 · 最佳条件">
+    <p><strong>条件</strong>：持证满1年 + 优质资质 + 叠拼抵押70%上限</p>
+    <div class="table-wrap">
+    <table>
+      <tr><th>项目</th><th>数值</th></tr>
+      <tr><td>经营贷放款</td><td class="num" style="font-size:1.1rem;">2,100,000</td></tr>
+      <tr><td>房款+各项费用（估）</td><td class="num">1,400,000-1,637,000</td></tr>
+      <tr><td style="font-weight:700;color:var(--green);background:var(--green-soft);font-size:1.05rem;">💰 净套出现金</td><td class="num" style="font-weight:700;color:var(--green);font-size:1.05rem;">463,000 - 700,000</td></tr>
+      <tr><td style="font-weight:700;">📊 年化 ROI</td><td class="num" style="font-weight:700;">39% - 60%</td></tr>
+    </table>
+    </div>
+  </div>
+</div>
+
+<h3>决策矩阵</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>方案</th><th>可贷金额</th><th>净套出</th><th>条件</th><th>可行性</th></tr>
+  <tr>
+    <td><strong>A · 法拍贷</strong></td>
+    <td class="num">95.6万</td>
+    <td class="num" style="color:var(--red);">-16.9万</td>
+    <td>拍下即办</td>
+    <td><span class="tag tag-red">不可行</span></td>
+  </tr>
+  <tr>
+    <td><strong>B · 经营贷（<1年）</strong></td>
+    <td class="num">78.8万</td>
+    <td class="num" style="color:var(--red);">-33.8万</td>
+    <td>持证<1年</td>
+    <td><span class="tag tag-red">不可行</span></td>
+  </tr>
+  <tr>
+    <td><strong style="color:var(--accent);">C · 经营贷（≥1年）</strong></td>
+    <td class="num">180万</td>
+    <td class="num" style="color:var(--green);">18-40万</td>
+    <td>持证≥1年</td>
+    <td><span class="tag tag-green">✅ 可行</span></td>
+  </tr>
+  <tr>
+    <td><strong style="color:var(--green);">C2 · 最佳条件</strong></td>
+    <td class="num">210万</td>
+    <td class="num" style="color:var(--green);">46-70万</td>
+    <td>优质资质</td>
+    <td><span class="tag tag-green">✅ 最优</span></td>
+  </tr>
+</table>
+</div>
+</section>
+
+<hr>
+
+<section id="calc">
+<div class="section-header">
+  <div class="section-label">Interactive Tool</div>
+  <h2>收益计算器</h2>
+  <p>调整参数，实时计算投资收益。所有字段均可修改。</p>
+</div>
+
+<div class="calc" id="calculator">
+  <h3>参数设定</h3>
+  <div class="calc-grid">
+    <div class="calc-field">
+      <label>法拍成交单价（元/㎡）</label>
+      <input type="number" id="fp-price" value="7500" oninput="calcProfit()">
+    </div>
+    <div class="calc-field">
+      <label>建筑面积（㎡）</label>
+      <input type="number" id="fp-area" value="150" oninput="calcProfit()">
+    </div>
+    <div class="calc-field">
+      <label>银行评估单价（元/㎡）</label>
+      <input type="number" id="eval-price" value="20000" oninput="calcProfit()">
+    </div>
+    <div class="calc-field">
+      <label>抵押成数（%）</label>
+      <input type="number" id="mortgage-rate" value="60" oninput="calcProfit()">
+    </div>
+    <div class="calc-field">
+      <label>税费比例（% of 成交价）</label>
+      <input type="number" id="tax-rate" value="12" oninput="calcProfit()">
+    </div>
+    <div class="calc-field">
+      <label>过桥资金月利率（%）</label>
+      <input type="number" id="bridge-rate" value="1.5" step="0.1" oninput="calcProfit()">
+    </div>
+    <div class="calc-field">
+      <label>持有时间（月）</label>
+      <input type="number" id="hold-months" value="12" oninput="calcProfit()">
+    </div>
+    <div class="calc-field">
+      <label>辅拍服务费率（%）</label>
+      <input type="number" id="service-rate" value="2" step="0.5" oninput="calcProfit()">
+    </div>
+  </div>
+
+  <div class="calc-result" id="calc-result">
+    <h4>测算结果</h4>
+    <div class="calc-result-row"><span>房产总价</span><span id="r-total-price">1,125,000</span></div>
+    <div class="calc-result-row"><span>税费</span><span id="r-tax">135,000</span></div>
+    <div class="calc-result-row"><span>服务费</span><span id="r-service">22,500</span></div>
+    <div class="calc-result-row"><span>过桥资金成本（持有期）</span><span id="r-bridge">202,500</span></div>
+    <div class="calc-result-row"><span>经营贷放款</span><span id="r-loan">1,800,000</span></div>
+    <div class="calc-result-row total"><span>💰 净套出现金</span><span id="r-netto" style="font-size:1.1rem;">315,000</span></div>
+    <div class="calc-result-row total"><span>📊 年化 ROI</span><span id="r-roi" style="font-size:1.1rem;">25.0%</span></div>
+  </div>
+</div>
+</section>
+
+<hr>
+
+<section id="ecosystem">
+<div class="section-header">
+  <div class="section-label">Market Structure</div>
+  <h2>行业生态与权力分布</h2>
+  <p>谁在赚钱、谁有话语权、你在什么位置。</p>
+</div>
+
+<h3>上中下游权力分布</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>层级</th><th>特征</th><th>利润厚度</th><th>话语权来源</th><th>代表方</th></tr>
+  <tr>
+    <td><span class="tag tag-green">上游</span></td>
+    <td>掌握资产来源</td>
+    <td>厚（30-50%折扣）</td>
+    <td>司法权/资产规模</td>
+    <td>AMC、法院、银行</td>
+  </tr>
+  <tr>
+    <td><span class="tag tag-amber">中游</span></td>
+    <td>专业能力+资金</td>
+    <td>中（16-36%ROI）</td>
+    <td>尽调/处置/融资</td>
+    <td>辅拍机构、操盘方</td>
+  </tr>
+  <tr>
+    <td><span class="tag tag-red">下游</span></td>
+    <td>依赖中游服务</td>
+    <td>薄（波动大）</td>
+    <td>资金/自住需求</td>
+    <td>个人投资客、LP</td>
+  </tr>
+</table>
+</div>
+
+<h3>中游关键玩家</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>机构</th><th>核心能力</th><th>规模</th><th>独特卖点</th></tr>
+  <tr>
+    <td><strong>恒升辅拍</strong></td>
+    <td>法律风控</td>
+    <td>8000+客户</td>
+    <td>自有律所、1.2倍回购、5年质保</td>
+  </tr>
+  <tr>
+    <td><strong>正兴法拍</strong></td>
+    <td>规模效率</td>
+    <td>14000+案例</td>
+    <td>最快7天过户、双法务</td>
+  </tr>
+  <tr>
+    <td><strong>法辅在线</strong></td>
+    <td>数字化</td>
+    <td>10000+人次</td>
+    <td>1.5倍赔付、自有APP</td>
+  </tr>
+</table>
+</div>
+</section>
+
+<hr>
+
+<section id="compliance">
+<div class="section-header">
+  <div class="section-label">Compliance</div>
+  <h2>合规边界检查清单</h2>
+  <p>2026 年监管环境下的红线与绿灯。</p>
+</div>
+
+<div class="alert red">
+  <strong>❌ 绝对不能做的（已入刑）</strong>
+  <ul style="padding-left:20px;margin-top:6px;font-size:.9rem;">
+    <li>串通评估公司把评估价做到高于真实市场价（高评高贷）</li>
+    <li>经营贷资金直接流入法拍市场（资金用途违规）</li>
+    <li>收取超过年化36%的垫资利息（非法经营罪）</li>
+    <li>用无金融牌照实体做放贷业务</li>
+  </ul>
+</div>
+
+<div class="alert green">
+  <strong>✅ 可以做的（正常商业行为）</strong>
+  <ul style="padding-left:20px;margin-top:6px;font-size:.9rem;">
+    <li>法拍折扣价买入 → 持有 → 按真实评估价抵押融资</li>
+    <li>经营贷用于企业经营周转 → 利润再投资</li>
+    <li>以LP出资形式募集资金 → 按比例分配收益</li>
+    <li>与持牌辅拍机构合作分成</li>
+  </ul>
+</div>
+
+<div class="alert amber">
+  <strong>⚠️ 需要特别注意</strong>
+  <ul style="padding-left:20px;margin-top:6px;font-size:.9rem;">
+    <li>经营贷的购销合同必须有真实交易背景</li>
+    <li>资金不能直接回流房产账户，需经企业账户周转</li>
+    <li>尽快咨询银行关于持证时间和出租影响</li>
+  </ul>
+</div>
+
+<h3>合规自检</h3>
+<ul class="checklist">
+  <li><span class="check">✅</span> 法拍价7500/㎡是真实市场竞争结果</li>
+  <li><span class="warn">⚠️</span> 评估价20000/㎡——需验证是否基于独立可比交易</li>
+  <li><span class="check">✅</span> 叠拼抵押成数60%——保守合规</li>
+  <li><span class="check">✅</span> 过桥月息1.5%——年化18%，低于36%红线</li>
+  <li><span class="cross">❌</span> 85成对叠拼不存在——需放弃此假设</li>
+  <li><span class="warn">⚠️</span> 经营贷资金路径需合规设计</li>
+</ul>
+</section>
+
+<hr>
+
+<section id="plan">
+<div class="section-header">
+  <div class="section-label">Execution</div>
+  <h2>实操执行方案</h2>
+  <p>从 0 到 1 跑通你的投资模型。</p>
+</div>
+
+<div class="table-wrap">
+<table>
+  <tr><th style="width:60px;">步骤</th><th>操作</th><th>时间</th><th>关键注意点</th></tr>
+  <tr><td><span class="tag tag-blue">01</span></td><td><strong>预评估</strong>：找2-3家银行询价</td><td>拍前</td><td>确认20000/㎡是否成立</td></tr>
+  <tr><td><span class="tag tag-blue">02</span></td><td><strong>资金准备</strong>：约140万</td><td>拍前</td><td>房款+税费+过桥储备</td></tr>
+  <tr><td><span class="tag tag-blue">03</span></td><td><strong>尽调标的</strong></td><td>拍前</td><td>查产权/租约/欠费/腾退</td></tr>
+  <tr><td><span class="tag tag-blue">04</span></td><td><strong>竞拍</strong></td><td>拍日</td><td>上限≤8000/㎡</td></tr>
+  <tr><td><span class="tag tag-blue">05</span></td><td><strong>过户办证</strong></td><td>7-15天</td><td>最快7天</td></tr>
+  <tr><td><span class="tag tag-blue">06</span></td><td><strong>持有期</strong></td><td>12个月</td><td>可出租覆盖部分成本</td></tr>
+  <tr><td><span class="tag tag-blue">07</span></td><td><strong>成立经营实体</strong></td><td>持证期内</td><td>执照需满3-6个月</td></tr>
+  <tr><td><span class="tag tag-blue">08</span></td><td><strong>申请经营贷</strong></td><td>持证满12月</td><td>60-70%成数，利率2.4-2.8%</td></tr>
+  <tr><td><span class="tag tag-blue">09</span></td><td><strong>资金再投资</strong></td><td>放款后</td><td>需合规中转</td></tr>
+</table>
+</div>
+
+<h3>三种起步模式</h3>
+<div class="card">
+  <div class="card-header"><span class="card-icon green">A</span><span class="card-title">自有资金操盘</span></div>
+  <div class="card-body"><p>自有资金140万→拍一套→持有1年→经营贷18-40万→循环。单套ROI 16-36%，完全合规。但1年仅1-2轮。</p></div>
+</div>
+<div class="card">
+  <div class="card-header"><span class="card-icon amber">B</span><span class="card-title">LP资金池模式</span></div>
+  <div class="card-body"><p>募集LP资金（年化10-15%）→批量拍房→持有1年→经营贷退出→分配利润。操盘方得超额分成。</p></div>
+</div>
+<div class="card">
+  <div class="card-header"><span class="card-icon blue">C</span><span class="card-title">与辅拍机构合作</span></div>
+  <div class="card-body"><p>恒升/正兴提供全流程服务，你出资金。收1-3%服务费+10-20%超额分成。省心快捷。</p></div>
+</div>
+</section>
+
+<hr>
+
+<section id="risks">
+<div class="section-header">
+  <div class="section-label">Risk Assessment</div>
+  <h2>风险评估与缓释</h2>
+</div>
+
+<div class="table-wrap">
+<table>
+  <tr><th>风险</th><th>概率</th><th>影响</th><th>缓释措施</th></tr>
+  <tr><td>评估价不达标</td><td><span class="tag tag-amber">中</span></td><td><span class="tag tag-red">高</span></td><td>拍前预评估</td></tr>
+  <tr><td>经营贷收紧</td><td><span class="tag tag-amber">中</span></td><td><span class="tag tag-amber">中高</span></td><td>多行询价3-5家</td></tr>
+  <tr><td>房价下行</td><td><span class="tag tag-amber">中</span></td><td><span class="tag tag-amber">中</span></td><td>聚焦核心区</td></tr>
+  <tr><td>竞拍超预算</td><td><span class="tag tag-green">中低</span></td><td><span class="tag tag-amber">中</span></td><td>严格设上限</td></tr>
+  <tr><td>腾退纠纷</td><td><span class="tag tag-amber">中</span></td><td><span class="tag tag-amber">中</span></td><td>尽调+兜底险</td></tr>
+  <tr><td>用户断供</td><td><span class="tag tag-green">中低</span></td><td><span class="tag tag-amber">中</span></td><td>改自持+LP模式</td></tr>
+</table>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="card-icon red">⚠</span><span class="card-title">最大风险</span></div>
+  <div class="card-body"><p><strong>1年持有期的过桥资金成本</strong>（月息1-2%，一年13.5-27万）是吃掉利润的大头。</p><p><strong>建议</strong>：①争取银行提放保模式降低利率 ②持有期内出租 ③第一套用自有资金跑通流程。</p></div>
+</div>
+</section>
+
+<hr>
+
+<footer>
+<div class="toc" style="margin-bottom:24px;">
+  <h2>附：关键数据一览</h2>
+  <div class="table-wrap" style="margin-top:12px;">
+  <table>
+    <tr><th>指标</th><th>数据</th><th>来源</th></tr>
+    <tr><td>成都法拍房挂拍量（2025）</td><td>9580套（全国第二）</td><td><span class="tag tag-amber">B级</span></td></tr>
+    <tr><td>住宅清仓率（2026.1）</td><td>36.8%</td><td><span class="tag tag-amber">B级</span></td></tr>
+    <tr><td>法拍房折价率</td><td>15-30%</td><td><span class="tag tag-amber">B级</span></td></tr>
+    <tr><td>二手房成交（2025）</td><td>23.2万套</td><td><span class="tag tag-amber">B级</span></td></tr>
+    <tr><td>经营贷利率</td><td>2.4-2.8%（历史低位）</td><td><span class="tag tag-green">A级</span></td></tr>
+    <tr><td>高评高贷定罪（2026.1）</td><td>非法经营罪</td><td><span class="tag tag-green">A级</span></td></tr>
+  </table>
+  </div>
+</div>
+
+<p><strong>报告生成：</strong>罗盘(luopan)行业研究 × finesse-ui设计体系</p>
+<p><strong>数据截至：</strong>2026年7月 | 基于公开信息，不构成投资建议</p>
+<p style="margin-top:8px;">⚠️ 本报告中关于合规边界的判断基于公开法规和案例。实际商业决策请咨询专业律师。</p>
+<p>单文件HTML，可直接浏览器打开、打印为PDF，或转发给合作伙伴。</p>
+</footer>
+
+</div><!-- /container -->
+
+<button class="print-btn" onclick="window.print()">🖨️ 打印 / 导出 PDF</button>
+
+<script>
+window.addEventListener('scroll',function(){var h=document.documentElement.scrollHeight-window.innerHeight;var p=h>0?(window.scrollY/h)*100:0;document.getElementById('progressBar').style.width=p+'%';});
+function toggleJudgment(h){h.parentElement.classList.toggle('open');}
+function switchTab(b,id){var t=b.closest('.tabs');t.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});t.querySelectorAll('.tab-content').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById(id).classList.add('active');}
+function calcProfit(){
+  var fp=parseFloat(document.getElementById('fp-price').value)||0;
+  var area=parseFloat(document.getElementById('fp-area').value)||0;
+  var ev=parseFloat(document.getElementById('eval-price').value)||0;
+  var mr=parseFloat(document.getElementById('mortgage-rate').value)||0;
+  var tr=parseFloat(document.getElementById('tax-rate').value)||0;
+  var br=parseFloat(document.getElementById('bridge-rate').value)||0;
+  var hm=parseFloat(document.getElementById('hold-months').value)||0;
+  var sr=parseFloat(document.getElementById('service-rate').value)||0;
+  var tp=fp*area;var tax=tp*(tr/100);var ser=tp*(sr/100);var bridge=tp*(br/100)*(hm/12);var loan=ev*area*(mr/100);
+  var netto=loan-tp-tax-ser-bridge;var roi=(tp+tax>0)?((netto)/(tp+tax))*100:0;
+  var f=function(n){return n.toLocaleString('zh-CN',{minimumFractionDigits:0})};
+  document.getElementById('r-total-price').textContent=f(tp);
+  document.getElementById('r-tax').textContent=f(tax);
+  document.getElementById('r-service').textContent=f(ser);
+  document.getElementById('r-bridge').textContent=f(bridge);
+  document.getElementById('r-loan').textContent=f(loan);
+  var ne=document.getElementById('r-netto');ne.textContent=f(netto);ne.style.color=netto>=0?'var(--accent)':'var(--red)';
+  var re=document.getElementById('r-roi');re.textContent=roi.toFixed(1)+'%';re.style.color=roi>=0?'var(--accent)':'var(--red)';
+}
+calcProfit();
+</script>
+
+</body>
+</html>
